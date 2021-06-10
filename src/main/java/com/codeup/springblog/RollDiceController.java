@@ -13,7 +13,7 @@ import java.util.Random;
 public class RollDiceController {
     Random rand = new Random();
 
-    int diceRoll = rand.nextInt(6);
+//    int diceRoll = rand.nextInt(6);
 
     @GetMapping("/roll-dice")
     public String guess(

@@ -3,9 +3,12 @@
 <head>
   <meta charset="UTF-8">
   <title>Roll Dice</title>
+  <th:block th:replace="partials/navbar :: bootStrap_styling_sheet" ></th:block>
+  <th:block th:replace="partials/footer :: bootStrap_styling_sheet" ></th:block>
 </head>
 <body>
-
+<nav th:replace="partials/navbar :: bootStrap_nav" ></nav>
+<h1>Dice Roll Game</h1>
 <!--Do THIS vv-->
 <!--<h3>Hello there <span th:text="${}"></span></h3>-->
 
@@ -30,6 +33,6 @@
 </th:block>
 
 
-
+<footer th:replace="partials/footer :: bootStrap_footer" ></footer>
 </body>
 </html>

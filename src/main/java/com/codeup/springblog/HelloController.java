@@ -27,7 +27,9 @@ public class HelloController {
             Model model
     ) {
 
+        String bio = "Coolest dude ever";
         model.addAttribute("UsersName", name);
+        model.addAttribute("bio", bio);
 
         return "helloUser";
     }

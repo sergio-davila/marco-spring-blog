@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Roll Dice</title>
+</head>
+<body>
+
+<!--Do THIS vv-->
+<!--<h3>Hello there <span th:text="${}"></span></h3>-->
+
+<a href="/roll-dice/1">1</a>
+<a href="/roll-dice/2">2</a>
+<a href="/roll-dice/3">3</a>
+<a href="/roll-dice/4">4</a>
+<a href="/roll-dice/5">5</a>
+<a href="/roll-dice/6">6</a>
+
+<h3>This is the result of the dice roll: <span th:text="${diceRoll}"></span></h3>
+
+<th:block th:if="${diceRoll == num}">
+
+  <p>YOU WON! CONGRATS!</p>
+
+</th:block>
+<th:block th:if="${diceRoll != num}">
+
+  <p>YOU LOST! LOL!</p>
+
+</th:block>
+
+
+
+</body>
+</html>

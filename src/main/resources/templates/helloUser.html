@@ -6,6 +6,13 @@
 </head>
 <body>
 
-<h3 th:text="${'Hello there ' + UsersName}">You'll never see me </h3>
+<!--Do THIS vv-->
+<h3>Hello there <span th:text="${UsersName}"></span></h3>
+
+<!--Less preferable-->
+<h3 th:text="${'Hello there ' + UsersName}"></h3>
+
+
+<p th:text="${bio}"></p>
 </body>
 </html>

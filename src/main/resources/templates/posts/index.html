@@ -14,8 +14,12 @@
 
     <h2 th:text="${post.title}"></h2>
     <p th:text="${post.body}"></p>
-
+    <form th:action="@{/posts/delete/{id}(id=${post.id})}" method="post">
+        <button type="submit" name="delete">Delete</button>
+    </form>
+    
 </th:block>
+
 
 <a href="/posts/1">See a single post here!</a>
 

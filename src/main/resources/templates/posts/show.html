@@ -9,5 +9,13 @@
 <body>
 <nav th:replace="partials/navbar :: bootStrap_nav" ></nav>
 
+<!--<h2 th:text="${post.title}"></h2>-->
+<!--<p th:text="${post.body}"></p>-->
+
+<h2 th:text="${singlePost.title}"></h2>
+<p th:text="${singlePost.body}"></p>
+
+
+<footer th:replace="partials/footer :: bootStrap_footer" ></footer>
 </body>
 </html>

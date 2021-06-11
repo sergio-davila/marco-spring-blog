@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Spring AdLister</title>
+  <th:block th:replace="partials/navbar :: bootStrap_styling_sheet" ></th:block>
+  <th:block th:replace="partials/footer :: bootStrap_styling_sheet" ></th:block>
+</head>
+<body>
+<nav th:replace="partials/navbar :: bootStrap_nav" ></nav>
+
+<h2>All Ads example:</h2>
+<div th:each="ad : ${ads}">
+  <h3 th:text="${ad.title}"></h3>
+  <p th:text="${ad.description}" />
+</div>
+
+<h2>A single ad:</h2>
+<div>
+  <h3>Check out the community's top voted ad:</h3>
+  <h3 th:text="${topAd.title}"></h3>
+  <p th:text="${topAd.description}"></p>
+</div>
+
+<h2>A search result:</h2>
+<div>
+  <h3>You searched for 'childcare', and here are our results:</h3>
+  <h3 th:text="${searchAd.title}"></h3>
+  <p th:text="${searchAd.description}"></p>
+</div>
+
+
+<footer th:replace="partials/footer :: bootStrap_footer" ></footer>
+</body>
+</html>

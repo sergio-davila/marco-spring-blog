@@ -2,10 +2,7 @@ package com.codeup.springblog;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,10 +10,10 @@ import java.util.List;
 @Controller
 public class PostController {
 
-    private final PostRepository adDao;
+    private final PostRepository postDao;
 
     public PostController(PostRepository adDao) {
-        this.adDao = adDao;
+        this.postDao = adDao;
     }
 
     @GetMapping("/posts")
@@ -28,7 +25,7 @@ public class PostController {
 //        listOfPosts.add(new Post("Laptop", "Gaming laptop"));
 //        model.addAttribute("posts", listOfPosts);
 
-        model.addAttribute("posts", adDao.findAll());
+        model.addAttribute("posts", postDao.findAll());
 
         return "posts/index";
     }
@@ -40,7 +37,7 @@ public class PostController {
     ) {
 //        Post post = new Post("TV", "60 inch tv");
 //        model.addAttribute("singlePost", adDao.findByTitle());
-        model.addAttribute("singlePost", adDao.findByTitle("TV"));
+        model.addAttribute("singlePost", postDao.findByTitle("TV"));
 
         return "posts/show";
     }
@@ -54,7 +51,29 @@ public class PostController {
     @PostMapping("/posts/delete/{n}")
     public String postsDelete(@PathVariable Long n) {
 
-        adDao.deleteById(n);
+        postDao.deleteById(n);
+
+        return "redirect:/posts";
+    }
+
+    @GetMapping("/posts/edit/{id}")
+    public String postsEditPage(@PathVariable long id, Model model) {
+
+        Post post = postDao.getById(id);
+
+        model.addAttribute("post", post);
+
+        return "posts/edit";
+    }
+
+    @PostMapping("/posts/edit/{id}")
+    public String postsEdit(@PathVariable long id, @RequestParam(name = "title") String title, @RequestParam(name = "body") String body) {
+
+        Post post = postDao.getById(id);
+        post.setTitle(title);
+        post.setBody(body);
+
+        postDao.save(post);
 
         return "redirect:/posts";
     }

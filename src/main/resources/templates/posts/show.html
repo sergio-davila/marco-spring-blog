@@ -16,6 +16,10 @@
 <p th:text="${singlePost.body}"></p>
 <p>User email: <span th:text="${singlePost.user.email}"></span></p>
 
+<div th:each="image : ${singlePost.images}">
+  <img th:src="${image.path}" th:alt="${image.description}">
+</div>
+
 
 <footer th:replace="partials/footer :: bootStrap_footer" ></footer>
 </body>

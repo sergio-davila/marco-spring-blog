@@ -4,6 +4,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Controller
 public class PostController {
 
@@ -34,7 +37,6 @@ public class PostController {
 //        model.addAttribute("singlePost", adDao.findByTitle());
 //        model.addAttribute("singlePost", postDao.findByTitle("TV"));
         model.addAttribute("singlePost", postDao.getById(id));
-
         return "posts/show";
     }
 
@@ -47,7 +49,8 @@ public class PostController {
     public String postsCreate(@RequestParam(name = "title") String title, @RequestParam(name = "body") String body) {
 
         User user = userDao.getById(1L);
-        Post newPost = new Post(title, body, user);
+        Post newPost = new Post(title, body, user, null);
+
         Post savedPost = postDao.save(newPost);
         return "redirect:/posts/" + savedPost.getId();
     }
@@ -71,11 +74,17 @@ public class PostController {
     }
 
     @PostMapping("/posts/edit/{id}")
-    public String postsEdit(@PathVariable long id, @RequestParam(name = "title") String title, @RequestParam(name = "body") String body) {
+    public String postsEdit(@PathVariable long id, @RequestParam(name = "title") String title, @RequestParam(name = "body") String body, @RequestParam(name = "imageURL") String imageURL, @RequestParam(name = "imageDescription") String imageDescription) {
 
         Post post = postDao.getById(id);
+//        PostImage image1 = new PostImage("https://i.ytimg.com/vi/ggNCKiu7nhA/maxresdefault.jpg", "60 in tv", post);
+//        PostImage image2 = new PostImage("https://i.rtings.com/assets/products/mrQV6IMB/samsung-q60-q60t-qled/design-small.jpg", "60 in tv train", post);
+        PostImage image1 = new PostImage(imageURL, imageDescription, post);
+        List<PostImage> images = new ArrayList<>();
+        images.add(image1);
         post.setTitle(title);
         post.setBody(body);
+        post.setImages(images);
 
         postDao.save(post);
 

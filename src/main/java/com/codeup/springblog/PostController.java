@@ -4,22 +4,20 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
-import java.util.List;
-
 @Controller
 public class PostController {
 
     private final PostRepository postDao;
+    private final UserRepository userDao;
 
-    public PostController(PostRepository adDao) {
-        this.postDao = adDao;
+
+    public PostController(PostRepository postDao, UserRepository userDao) {
+        this.postDao = postDao;
+        this.userDao = userDao;
     }
 
     @GetMapping("/posts")
-    public String posts(
-            Model model
-    ) {
+    public String showAllPosts(Model model) {
 //        List<Post> listOfPosts = new ArrayList<>();
 //        listOfPosts.add(new Post("TV", "60 inch tv"));
 //        listOfPosts.add(new Post("Laptop", "Gaming laptop"));
@@ -31,21 +29,26 @@ public class PostController {
     }
 
     @GetMapping("/posts/{id}")
-    public String postsId(
-            @PathVariable int id,
-            Model model
-    ) {
+    public String singlePostPage(@PathVariable long id, Model model) {
 //        Post post = new Post("TV", "60 inch tv");
 //        model.addAttribute("singlePost", adDao.findByTitle());
-        model.addAttribute("singlePost", postDao.findByTitle("TV"));
+//        model.addAttribute("singlePost", postDao.findByTitle("TV"));
+        model.addAttribute("singlePost", postDao.getById(id));
 
         return "posts/show";
     }
 
     @GetMapping("/posts/create")
-    @ResponseBody
-    public String postsCreate() {
-        return "You will be able to create posts from this page, please come back when its finally done!";
+    public String showCreateForm() {
+        return "posts/create";
+    }
+
+    @PostMapping("/posts/create")
+    public String postsCreate(@RequestParam(name = "title") String title, @RequestParam(name = "body") String body) {
+        User user = userDao.getById(1L);
+        Post newPost = new Post(title, body, user);
+        Post savedPost = postDao.save(newPost);
+        return "redirect:/posts/" + savedPost.getId();
     }
 
     @PostMapping("/posts/delete/{n}")

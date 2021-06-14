@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<th:block th:replace="partials/header :: header"></th:block>
+<body>
+<nav th:replace="partials/navbar :: bootStrap_nav" ></nav>
+<div class="container">
+    <form action="/posts/create" method="post">
+        <label for="createTitle">Title</label>
+        <input id="createTitle" type="text" name="title">
+        <br>
+        <label for="createBody">Body</label>
+        <input id="createBody" type="text" name="body">
+        <br>
+        <input type="submit">
+    </form>
+</div>
+
+
+
+<footer th:replace="partials/footer :: bootStrap_footer" ></footer>
+</body>
+</html>

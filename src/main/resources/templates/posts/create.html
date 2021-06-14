@@ -5,10 +5,12 @@
 <nav th:replace="partials/navbar :: bootStrap_nav" ></nav>
 <div class="container">
     <form action="/posts/create" method="post">
-        <label for="createTitle">Title</label>
+        <h5>Create a post by filling out the forms below:</h5>
+        <br>
+        <label for="createTitle">Title:</label>
         <input id="createTitle" type="text" name="title">
         <br>
-        <label for="createBody">Body</label>
+        <label for="createBody">Body:</label>
         <input id="createBody" type="text" name="body">
         <br>
         <input type="submit">

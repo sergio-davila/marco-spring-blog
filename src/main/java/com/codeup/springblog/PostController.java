@@ -45,6 +45,7 @@ public class PostController {
 
     @PostMapping("/posts/create")
     public String postsCreate(@RequestParam(name = "title") String title, @RequestParam(name = "body") String body) {
+
         User user = userDao.getById(1L);
         Post newPost = new Post(title, body, user);
         Post savedPost = postDao.save(newPost);

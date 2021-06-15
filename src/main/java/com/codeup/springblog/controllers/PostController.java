@@ -51,15 +51,14 @@ public class PostController {
 
 //    @PostMapping("/posts/create")
 //    public String postsCreate(@RequestParam(name = "title") String title, @RequestParam(name = "body") String body) {
-        @PostMapping("/posts/create")
-        public String postsCreate(@ModelAttribute Post post) {
+    @PostMapping("/posts/create")
+    public String postsCreate(@ModelAttribute Post post) {
         User user = userDao.getById(1L);
         Post newPost = new Post(post.getTitle(), post.getBody(), user, null);
 
-
         Post savedPost = postDao.save(newPost);
         emailService.prepareAndSend(newPost, "new post created", post.getBody());
-        return "redirect:/posts/" + savedPost.getId();
+            return "redirect:/posts/" + savedPost.getId();
     }
 
     @PostMapping("/posts/delete/{n}")

@@ -19,13 +19,13 @@
     <label for="body">Body:</label>
     <input id="body" type="text" th:value="${post.body}" th:field="*{body}">
     <br>
+    <div>
     <label for="imageURL">Image URL:</label>
-    <div >
     <input id="imageURL" type="text" name="imageURL">
-    </div>
     <br>
     <label for="imageDescription">Image Description:</label>
     <input id="imageDescription" type="text" name="imageDescription">
+    </div>
     <input type="hidden" th:value="${post.user.id}" th:field="*{user.id}">
     <br>
     <button type="submit">Submit</button>

@@ -41,15 +41,17 @@ public class PostController {
     }
 
     @GetMapping("/posts/create")
-    public String showCreateForm() {
+    public String showCreateForm(Model model) {
+        model.addAttribute("post", new Post());
         return "posts/create";
     }
 
-    @PostMapping("/posts/create")
-    public String postsCreate(@RequestParam(name = "title") String title, @RequestParam(name = "body") String body) {
-
+//    @PostMapping("/posts/create")
+//    public String postsCreate(@RequestParam(name = "title") String title, @RequestParam(name = "body") String body) {
+        @PostMapping("/posts/create")
+        public String postsCreate(@ModelAttribute Post post) {
         User user = userDao.getById(1L);
-        Post newPost = new Post(title, body, user, null);
+        Post newPost = new Post(post.getTitle(), post.getBody(), user, null);
 
         Post savedPost = postDao.save(newPost);
         return "redirect:/posts/" + savedPost.getId();
@@ -73,17 +75,16 @@ public class PostController {
         return "posts/edit";
     }
 
-    @PostMapping("/posts/edit/{id}")
-    public String postsEdit(@PathVariable long id, @RequestParam(name = "title") String title, @RequestParam(name = "body") String body, @RequestParam(name = "imageURL") String imageURL, @RequestParam(name = "imageDescription") String imageDescription) {
+//    @PostMapping("/posts/edit/{id}")
+//    public String postsEdit(@PathVariable long id, @RequestParam(name = "title") String title, @RequestParam(name = "body") String body, @RequestParam(name = "imageURL") String imageURL, @RequestParam(name = "imageDescription") String imageDescription) {
+        @PostMapping("/posts/edit/{id}")
+        public String postsEdit(@PathVariable long id, @ModelAttribute Post post, @RequestParam(name = "imageURL") String imageURL, @RequestParam(name = "imageDescription") String imageDescription) {
 
-        Post post = postDao.getById(id);
 //        PostImage image1 = new PostImage("https://i.ytimg.com/vi/ggNCKiu7nhA/maxresdefault.jpg", "60 in tv", post);
 //        PostImage image2 = new PostImage("https://i.rtings.com/assets/products/mrQV6IMB/samsung-q60-q60t-qled/design-small.jpg", "60 in tv train", post);
         PostImage image1 = new PostImage(imageURL, imageDescription, post);
         List<PostImage> images = new ArrayList<>();
         images.add(image1);
-        post.setTitle(title);
-        post.setBody(body);
         post.setImages(images);
 
         postDao.save(post);

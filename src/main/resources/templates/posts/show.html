@@ -1,16 +1,8 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>Posts Display</title>
-  <th:block th:replace="partials/navbar :: bootStrap_styling_sheet" ></th:block>
-  <th:block th:replace="partials/footer :: bootStrap_styling_sheet" ></th:block>
-</head>
+<head th:replace="partials/header :: header"></head>
 <body>
 <nav th:replace="partials/navbar :: bootStrap_nav" ></nav>
 
-<!--<h2 th:text="${post.title}"></h2>-->
-<!--<p th:text="${post.body}"></p>-->
 
 <h2 th:text="${singlePost.title}"></h2>
 <p th:text="${singlePost.body}"></p>

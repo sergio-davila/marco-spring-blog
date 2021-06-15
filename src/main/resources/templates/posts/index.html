@@ -1,28 +1,21 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" lang="en">
-<!--<head>-->
-<!--    <meta charset="UTF-8">-->
-<!--    <title>Index Page</title>-->
-<!--    <th:block th:replace="partials/navbar :: bootStrap_styling_sheet" ></th:block>-->
-<!--    <th:block th:replace="partials/footer :: bootStrap_styling_sheet" ></th:block>-->
-<!--</head>-->
-<th:block th:replace="partials/header :: header"></th:block>
+<th:head th:replace="partials/header :: header"></th:head>
 <body>
 <nav th:replace="partials/navbar :: bootStrap_nav" ></nav>
 
 <th:block th:each="post : ${posts}">
 
-    <h2 th:text="${post.title}"></h2>
+    <a class="btn" th:href="@{/posts/{id}(id=${post.id})}"><h2 th:text="${post.title}"></h2></a>
     <p th:text="${post.body}"></p>
+    <div>
     <form th:action="@{/posts/delete/{id}(id=${post.id})}" method="post">
         <button type="submit" name="delete">Delete</button>
     </form>
     <a class="btn" th:href="@{/posts/edit/{id}(id=${post.id})}">Edit</a>
-    <a class="btn" th:href="@{/posts/{id}(id=${post.id})}">View Post Page</a>
+    </div>
+    <br>
 </th:block>
 
-
-<!--<a href="/posts/1">See a single post here!</a>-->
 
 <footer th:replace="partials/footer :: bootStrap_footer" ></footer>
 </body>

@@ -4,14 +4,14 @@
 <body>
 <nav th:replace="partials/navbar :: bootStrap_nav" ></nav>
 <div class="container">
-    <form action="/posts/create" method="post">
+    <form action="/posts/create" method="post" th:object="${post}">
         <h5>Create a post by filling out the forms below:</h5>
         <br>
         <label for="createTitle">Title:</label>
-        <input id="createTitle" type="text" name="title">
+        <input id="createTitle" type="text" th:field="*{title}">
         <br>
         <label for="createBody">Body:</label>
-        <input id="createBody" type="text" name="body">
+        <input id="createBody" type="text" th:field="*{body}">
         <br>
 <!--        <label for="imageURL">Image URL:</label>-->
 <!--        <input id="imageURL" type="text" name="imageURL">-->

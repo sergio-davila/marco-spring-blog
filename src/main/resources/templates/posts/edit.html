@@ -6,23 +6,27 @@
 <!--    <th:block th:replace="partials/navbar :: bootStrap_styling_sheet" ></th:block>-->
 <!--    <th:block th:replace="partials/footer :: bootStrap_styling_sheet" ></th:block>-->
 <!--</head>-->
-<th:block th:replace="partials/header :: header"></th:block>
+<th:head th:replace="partials/header :: header"></th:head>
 <body>
 <nav th:replace="partials/navbar :: bootStrap_nav" ></nav>
 
 <h5>Edit or add an image:</h5>
-<form th:action="@{/posts/edit/{id}(id=${post.id})}" method="post">
+<br>
+<form th:action="@{/posts/edit/{id}(id=${post.id})}" method="post" th:object="${post}">
     <label for="title">Title:</label>
-    <input id="title" type="text" name="title" th:value="${post.title}">
+    <input id="title" type="text" th:value="${post.title}" th:field="*{title}">
     <br>
     <label for="body">Body:</label>
-    <input id="body" type="text" name="body" th:value="${post.body}">
+    <input id="body" type="text" th:value="${post.body}" th:field="*{body}">
     <br>
     <label for="imageURL">Image URL:</label>
+    <div >
     <input id="imageURL" type="text" name="imageURL">
+    </div>
     <br>
     <label for="imageDescription">Image Description:</label>
     <input id="imageDescription" type="text" name="imageDescription">
+    <input type="hidden" th:value="${post.user.id}" th:field="*{user.id}">
     <br>
     <button type="submit">Submit</button>
 </form>

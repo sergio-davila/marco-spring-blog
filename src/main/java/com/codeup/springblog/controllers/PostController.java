@@ -58,7 +58,7 @@ public class PostController {
         post.setUser(user);
 
         postDao.save(post);
-//        emailService.prepareAndSend(post, "new post created", post.getBody());
+        emailService.prepareAndSend(post, "new post created", post.getBody());
         return "redirect:/posts/" + post.getId();
     }
 

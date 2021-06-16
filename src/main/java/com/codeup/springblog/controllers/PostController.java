@@ -26,7 +26,6 @@ public class PostController {
         this.postDao = postDao;
         this.userDao = userDao;
         this.emailService = emailService;
-
     }
 
     @GetMapping("/posts")
@@ -53,18 +52,20 @@ public class PostController {
 //    public String postsCreate(@RequestParam(name = "title") String title, @RequestParam(name = "body") String body) {
     @PostMapping("/posts/create")
     public String postsCreate(@ModelAttribute Post post) {
-        User user = userDao.getById(1L);
-        Post newPost = new Post(post.getTitle(), post.getBody(), user, null);
+//        Post newPost = new Post(post.getTitle(), post.getBody(), user, null);
 
-        Post savedPost = postDao.save(newPost);
-        emailService.prepareAndSend(newPost, "new post created", post.getBody());
-            return "redirect:/posts/" + savedPost.getId();
+        User user = userDao.getById(1L);
+        post.setUser(user);
+
+        postDao.save(post);
+//        emailService.prepareAndSend(post, "new post created", post.getBody());
+        return "redirect:/posts/" + post.getId();
     }
 
-    @PostMapping("/posts/delete/{n}")
-    public String postsDelete(@PathVariable Long n) {
+    @PostMapping("/posts/delete/{id}")
+    public String postsDelete(@PathVariable Long id) {
 
-        postDao.deleteById(n);
+        postDao.deleteById(id);
 
         return "redirect:/posts";
     }

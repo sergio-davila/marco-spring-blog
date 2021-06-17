@@ -7,6 +7,7 @@ import com.codeup.springblog.models.PostImage;
 import com.codeup.springblog.models.User;
 import com.codeup.springblog.services.EmailService;
 import com.codeup.springblog.services.StringService;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -48,18 +49,17 @@ public class PostController {
         return "posts/create";
     }
 
-//    @PostMapping("/posts/create")
-//    public String postsCreate(@RequestParam(name = "title") String title, @RequestParam(name = "body") String body) {
     @PostMapping("/posts/create")
     public String postsCreate(@ModelAttribute Post post) {
-//        Post newPost = new Post(post.getTitle(), post.getBody(), user, null);
-
-        User user = userDao.getById(1L);
+//        User user = userDao.getById(1L);
+        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         post.setUser(user);
 
-        postDao.save(post);
+        Post savedPost = postDao.save(post);
+
         emailService.prepareAndSend(post, "new post created", post.getBody());
-        return "redirect:/posts/" + post.getId();
+
+        return "redirect:/posts/" + savedPost.getId();
     }
 
     @PostMapping("/posts/delete/{id}")
@@ -80,8 +80,6 @@ public class PostController {
         return "posts/edit";
     }
 
-//    @PostMapping("/posts/edit/{id}")
-//    public String postsEdit(@PathVariable long id, @RequestParam(name = "title") String title, @RequestParam(name = "body") String body, @RequestParam(name = "imageURL") String imageURL, @RequestParam(name = "imageDescription") String imageDescription) {
     @PostMapping("/posts/edit/{id}")
     public String postsEdit(@PathVariable long id, @ModelAttribute Post post, @RequestParam(name = "imageURL") String imageURL, @RequestParam(name = "imageDescription") String imageDescription) {
         PostImage image1 = new PostImage(imageURL, imageDescription, post);

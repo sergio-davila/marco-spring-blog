@@ -1,4 +1,7 @@
 <!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      lang="en">
 <th:head th:replace="partials/header :: header"></th:head>
 <body>
 <nav th:replace="partials/navbar :: bootStrap_nav" ></nav>
@@ -16,6 +19,14 @@
     <br>
 </th:block>
 
+
+<div sec:authorize="isAuthenticated()">
+    This content is only shown to authenticated users.
+
+    User ID: <span th:text="${#authentication.principal.id}"/>
+    Username: <span th:text="${#authentication.principal.username}"/>
+    Email: <span th:text="${#authentication.principal.email}"/>
+</div>
 
 <footer th:replace="partials/footer :: bootStrap_footer" ></footer>
 </body>

@@ -1,11 +1,7 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" lang="en">
-<!--<head>-->
-<!--    <meta charset="UTF-8">-->
-<!--    <title>Index Page</title>-->
-<!--    <th:block th:replace="partials/navbar :: bootStrap_styling_sheet" ></th:block>-->
-<!--    <th:block th:replace="partials/footer :: bootStrap_styling_sheet" ></th:block>-->
-<!--</head>-->
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      lang="en">
 <th:head th:replace="partials/header :: header"></th:head>
 <body>
 <nav th:replace="partials/navbar :: bootStrap_nav" ></nav>

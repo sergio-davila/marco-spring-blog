@@ -22,22 +22,32 @@ public class Post {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "post")
     private List<PostImage> images;
 
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(
+            name="posts_categories",
+            joinColumns={@JoinColumn(name = "post_id")},
+            inverseJoinColumns={@JoinColumn(name="category_id")}
+    )
+    private List<PostCategory> categories;
+
     public Post() {
     }
 
-    public Post(String title, String body, User user, List<PostImage> images) {
+    public Post(String title, String body, User user, List<PostImage> images, List<PostCategory> categories) {
         this.title = title;
         this.body = body;
         this.user = user;
         this.images = images;
+        this.categories = categories;
     }
 
-    public Post(long id, String title, String body, User user, List<PostImage> images) {
+    public Post(long id, String title, String body, User user, List<PostImage> images, List<PostCategory> categories) {
         this.id = id;
         this.title = title;
         this.body = body;
         this.user = user;
         this.images = images;
+        this.categories = categories;
     }
 
     public String getTitle() {
@@ -78,5 +88,13 @@ public class Post {
 
     public void setImages(List<PostImage> images) {
         this.images = images;
+    }
+
+    public List<PostCategory> getCategories() {
+        return categories;
+    }
+
+    public void setCategories(List<PostCategory> categories) {
+        this.categories = categories;
     }
 }

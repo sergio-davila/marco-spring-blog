@@ -1,5 +1,6 @@
 package com.codeup.springblog.controllers;
 
+import com.codeup.springblog.DAOs.PostCategoryRepository;
 import com.codeup.springblog.DAOs.PostRepository;
 import com.codeup.springblog.DAOs.UserRepository;
 import com.codeup.springblog.models.Post;
@@ -21,12 +22,13 @@ public class PostController {
     private final EmailService emailService;
     private final PostRepository postDao;
     private final UserRepository userDao;
+    private final PostCategoryRepository postCategoryDao;
 
-
-    public PostController(PostRepository postDao, UserRepository userDao, EmailService emailService) {
+    public PostController(PostRepository postDao, UserRepository userDao, EmailService emailService , PostCategoryRepository postCategoryDao) {
         this.postDao = postDao;
         this.userDao = userDao;
         this.emailService = emailService;
+        this.postCategoryDao = postCategoryDao;
     }
 
     @GetMapping("/posts")
@@ -46,6 +48,7 @@ public class PostController {
     @GetMapping("/posts/create")
     public String showCreateForm(Model model) {
         model.addAttribute("post", new Post());
+        model.addAttribute("categories", postCategoryDao.findAll());
         return "posts/create";
     }
 

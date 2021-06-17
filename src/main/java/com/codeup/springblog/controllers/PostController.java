@@ -18,7 +18,7 @@ import java.util.List;
 @Controller
 public class PostController {
 
-    private EmailService emailService;
+    private final EmailService emailService;
     private final PostRepository postDao;
     private final UserRepository userDao;
 
@@ -57,7 +57,7 @@ public class PostController {
 
         Post savedPost = postDao.save(post);
 
-        emailService.prepareAndSend(post, "new post created", post.getBody());
+        emailService.prepareAndSend(post, post.getTitle(), post.getBody());
 
         return "redirect:/posts/" + savedPost.getId();
     }
